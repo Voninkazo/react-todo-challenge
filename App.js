@@ -58,7 +58,7 @@ function App() {
     console.log(activeTasks);
 
     function removeItem(id) {
-        setTodoItems([...todoItems], todoItems.filter(task => task.id !== id));
+       setTodoItems(todoItems.filter(task => task.id !== id));
         console.log(id);
     }
 
@@ -66,9 +66,11 @@ function App() {
         <div>
             <Header />
             <FormSubmit  handleChange={handleChange} handleSubmit={handleSubmit}/>
-            <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
-            <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
-            <ActiveTasks activeTasks={activeTasks} handleChange={handleChange} />
+            <main>
+                <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
+                <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
+                <ActiveTasks activeTasks={activeTasks} handleChange={handleChange} />
+            </main>
         </div>
     )
 }

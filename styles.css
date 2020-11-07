@@ -1,8 +1,0 @@
-.todo-items {
-    display: flex;
-    flex-direction: column;
-}
-
-.item-completed {
-    text-decoration: line-through;
-}

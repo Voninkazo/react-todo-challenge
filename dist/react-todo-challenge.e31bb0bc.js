@@ -29851,6 +29851,7 @@ function AllToDoItems(_ref) {
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
+    className: "btn",
     onClick: toggle
   }, "All"), /*#__PURE__*/_react.default.createElement("div", null, isOpen && todoItems.map(function (todo) {
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -29891,7 +29892,9 @@ function FormSubmit(_ref) {
   }, /*#__PURE__*/_react.default.createElement("input", {
     type: "text",
     name: "todo",
-    onChange: handleChange
+    onChange: handleChange,
+    placeholder: "Add a todo list",
+    required: true
   }), /*#__PURE__*/_react.default.createElement("button", {
     type: "submit"
   }, "Submit"));
@@ -29937,6 +29940,7 @@ function CompletedItems(_ref) {
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
+    className: "btn",
     onClick: toggle
   }, "Completed tasks"), /*#__PURE__*/_react.default.createElement("div", null, isToggle && completedTasks.map(function (task) {
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -29954,7 +29958,7 @@ function CompletedItems(_ref) {
       onClick: function onClick() {
         return removeItem(task.id);
       }
-    }, "Remove")));
+    }, "X")));
   })));
 }
 
@@ -29997,6 +30001,7 @@ function ActiveTasks(_ref) {
 
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
+    className: "btn",
     onClick: toggle
   }, "Active tasks"), isOpen && activeTasks.map(function (task) {
     return /*#__PURE__*/_react.default.createElement("div", {
@@ -30142,7 +30147,7 @@ function App() {
   console.log(activeTasks);
 
   function removeItem(id) {
-    setTodoItems(_toConsumableArray(todoItems), todoItems.filter(function (task) {
+    setTodoItems(todoItems.filter(function (task) {
       return task.id !== id;
     }));
     console.log(id);
@@ -30151,7 +30156,7 @@ function App() {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
     handleChange: handleChange,
     handleSubmit: handleSubmit
-  }), /*#__PURE__*/_react.default.createElement(_AllToDoItems.default, {
+  }), /*#__PURE__*/_react.default.createElement("main", null, /*#__PURE__*/_react.default.createElement(_AllToDoItems.default, {
     todoItems: todoItems,
     markAsCompleted: markAsCompleted
   }), /*#__PURE__*/_react.default.createElement(_CompletedItems.default, {
@@ -30161,7 +30166,7 @@ function App() {
   }), /*#__PURE__*/_react.default.createElement(_ActiveTasks.default, {
     activeTasks: activeTasks,
     handleChange: handleChange
-  }));
+  })));
 }
 
 var _default = App;
@@ -30206,7 +30211,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65097" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51712" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

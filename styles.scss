@@ -1,0 +1,109 @@
+@font-face {
+    font-family: 'Montserrat';
+    src: url('./fonts/montserrat-regular.woff2') format('woff2'), url('./fonts/montserrat-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+html {
+    font-size: 16px;
+    font-family: "Montserrat";
+}
+
+body {
+    margin: 0;
+    padding: 1rem;
+    background-color: #cccccc
+}
+
+h1 {
+    text-align: left;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    >div {
+        padding-top: 3rem;
+    }
+}
+
+.btn {
+    background: none;
+    padding: 1rem 2rem;
+}
+
+btn:active {
+    outline: orangered;
+}
+
+button {
+    font-family: "Montserrat";
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    justify-content: baseline;
+    input {
+        font-family: "Montserrat";
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        font-size: 18px;
+        line-height: 22px;
+        outline: none;
+    }
+    button {
+        margin-top: 1rem;
+        padding: 1rem 2rem;
+        border-radius: 8px;
+        background-color: #f44336;
+        font-weight: 600;
+        color: #ffffff;
+    }
+    button:hover {
+        background-color: red;
+        transition: 1s;
+    }
+}
+
+.todo-items {
+    display: flex;
+    flex-direction: column;
+}
+
+.item-completed {
+    text-decoration: line-through;
+}
+
+@media (min-width:768px) {
+    form {
+        flex-direction: row;
+        justify-content: center;
+        button {
+            margin-left: 1rem;
+            margin-top: 0;
+        }
+    }
+    h1 {
+        text-align: center;
+    }
+    main {
+        flex-direction: row;
+        justify-content: space-around;
+    }
+}
+
+@media (min-width: 1114px) {
+    main {
+        max-width: 1114px;
+        margin: auto;
+    }
+    body {
+        padding: 0;
+    }
+}

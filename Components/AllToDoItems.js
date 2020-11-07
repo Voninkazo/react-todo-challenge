@@ -6,7 +6,7 @@ function AllToDoItems({markAsCompleted,todoItems}) {
     const [isOpen,toggle] = useTodo(true);
     return(
         <div>
-            <button type="button" onClick={toggle}>All</button>
+            <button type="button" className="btn" onClick={toggle}>All</button>
             <div>
             {
                 isOpen && 

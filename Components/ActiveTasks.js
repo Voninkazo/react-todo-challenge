@@ -5,7 +5,7 @@ function ActiveTasks({activeTasks,handleChange}) {
     const [isOpen,toggle] = useTodo();
     return (
         <div>
-            <button type="button" onClick={toggle}>Active tasks</button>
+            <button type="button" className="btn" onClick={toggle}>Active tasks</button>
             {isOpen && 
                 activeTasks.map(task => {
                     return(

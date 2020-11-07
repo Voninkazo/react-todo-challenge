@@ -5,7 +5,7 @@ function CompletedItems({completedTasks,handleChange,removeItem}) {
     const [isToggle, toggle] = useTodo();
     return(
         <div>
-            <button type="button" onClick={toggle}>Completed tasks</button>
+            <button type="button" className="btn" onClick={toggle}>Completed tasks</button>
             <div>
                 { isToggle &&
                     completedTasks.map(task =>{
@@ -19,7 +19,7 @@ function CompletedItems({completedTasks,handleChange,removeItem}) {
                                 onChange={handleChange}
                                 />
                                 <span className={`${task.completed ? "item-completed" : "" }`}>{task.title}</span>
-                                <button type="button" onClick={() => removeItem(task.id)}>Remove</button>
+                                <button type="button" onClick={() => removeItem(task.id)}>X</button>
                             </label>
                         </div>
                         )
