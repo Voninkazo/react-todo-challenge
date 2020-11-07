@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import ToDoItem from './Components/ToDoItem';
+import FormSubmit from './Components/FormSubmit';
 
 const initializeItems = [
     {
@@ -44,15 +45,12 @@ function App() {
     return (
         <div>
             <h2>To do challenge</h2>
-            <form onSubmit={handleSubmit}>
-                <input type="text" name="todo" onChange={handleChange}/>
-                <button type="submit">Submit</button>
-            </form>
+            <FormSubmit  handleChange={handleChange} handleSubmit={handleSubmit}/>
             <div>
                 {
                 todoItems.map(todo => {
                         return(
-                <ToDoItem todo={todo} handleSubmit={handleSubmit} key={todo.id}  />
+                <ToDoItem todo={todo} key={todo.id}  />
                 )
                 })
             }

@@ -29796,6 +29796,34 @@ function ToDoItem(_ref) {
 
 var _default = ToDoItem;
 exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"Components/FormSubmit.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function FormSubmit(_ref) {
+  var handleSubmit = _ref.handleSubmit,
+      handleChange = _ref.handleChange;
+  return /*#__PURE__*/_react.default.createElement("form", {
+    onSubmit: handleSubmit
+  }, /*#__PURE__*/_react.default.createElement("input", {
+    type: "text",
+    name: "todo",
+    onChange: handleChange
+  }), /*#__PURE__*/_react.default.createElement("button", {
+    type: "submit"
+  }, "Submit"));
+}
+
+var _default = FormSubmit;
+exports.default = _default;
 },{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
@@ -29807,6 +29835,8 @@ exports.default = void 0;
 var _react = _interopRequireWildcard(require("react"));
 
 var _ToDoItem = _interopRequireDefault(require("./Components/ToDoItem"));
+
+var _FormSubmit = _interopRequireDefault(require("./Components/FormSubmit"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -29874,18 +29904,12 @@ function App() {
     e.target.reset();
   }
 
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "To do challenge"), /*#__PURE__*/_react.default.createElement("form", {
-    onSubmit: handleSubmit
-  }, /*#__PURE__*/_react.default.createElement("input", {
-    type: "text",
-    name: "todo",
-    onChange: handleChange
-  }), /*#__PURE__*/_react.default.createElement("button", {
-    type: "submit"
-  }, "Submit")), /*#__PURE__*/_react.default.createElement("div", null, todoItems.map(function (todo) {
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "To do challenge"), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
+    handleChange: handleChange,
+    handleSubmit: handleSubmit
+  }), /*#__PURE__*/_react.default.createElement("div", null, todoItems.map(function (todo) {
     return /*#__PURE__*/_react.default.createElement(_ToDoItem.default, {
       todo: todo,
-      handleSubmit: handleSubmit,
       key: todo.id
     });
   })));
@@ -29893,7 +29917,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./Components/ToDoItem":"Components/ToDoItem.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Components/ToDoItem":"Components/ToDoItem.js","./Components/FormSubmit":"Components/FormSubmit.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
