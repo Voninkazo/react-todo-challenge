@@ -29772,7 +29772,47 @@ if ("development" === 'production') {
 } else {
   module.exports = require('./cjs/react-dom.development.js');
 }
-},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"Components/ToDoItem.js":[function(require,module,exports) {
+},{"./cjs/react-dom.development.js":"node_modules/react-dom/cjs/react-dom.development.js"}],"useTodo.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = require("react");
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function useTodo() {
+  var _useState = (0, _react.useState)(false),
+      _useState2 = _slicedToArray(_useState, 2),
+      isToggle = _useState2[0],
+      setIsToggle = _useState2[1];
+
+  function toggle() {
+    setIsToggle(function (prev) {
+      return !prev;
+    });
+    console.log("toggle");
+  }
+
+  return [isToggle, toggle];
+}
+
+var _default = useTodo;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"Components/AllToDoItems.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29782,21 +29822,54 @@ exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
+var _useTodo3 = _interopRequireDefault(require("../useTodo"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function ToDoItem(_ref) {
-  var todo = _ref.todo;
-  return /*#__PURE__*/_react.default.createElement("div", {
-    className: "todo-items"
-  }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
-    type: "checkbox",
-    name: "checkbox"
-  }), /*#__PURE__*/_react.default.createElement("span", null, todo.title)));
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function AllToDoItems(_ref) {
+  var markAsCompleted = _ref.markAsCompleted,
+      todoItems = _ref.todoItems;
+
+  var _useTodo = (0, _useTodo3.default)(),
+      _useTodo2 = _slicedToArray(_useTodo, 2),
+      isOpen = _useTodo2[0],
+      toggle = _useTodo2[1];
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    onClick: toggle
+  }, "All"), /*#__PURE__*/_react.default.createElement("div", null, isOpen && todoItems.map(function (todo) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "todo-items",
+      key: todo.id
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+      type: "checkbox",
+      name: "checkbox",
+      checked: "".concat(todo.completed ? "checked" : ""),
+      onChange: function onChange() {
+        return markAsCompleted(todo.id);
+      }
+    }), /*#__PURE__*/_react.default.createElement("span", {
+      className: "".concat(todo.completed ? "item-completed" : "")
+    }, todo.title)));
+  })));
 }
 
-var _default = ToDoItem;
+var _default = AllToDoItems;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"Components/FormSubmit.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../useTodo":"useTodo.js"}],"Components/FormSubmit.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29824,7 +29897,114 @@ function FormSubmit(_ref) {
 
 var _default = FormSubmit;
 exports.default = _default;
-},{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js"}],"Components/CompletedItems.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _useTodo3 = _interopRequireDefault(require("../useTodo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function CompletedItems(_ref) {
+  var completedTaks = _ref.completedTaks,
+      handleChange = _ref.handleChange;
+
+  var _useTodo = (0, _useTodo3.default)(),
+      _useTodo2 = _slicedToArray(_useTodo, 2),
+      isToggle = _useTodo2[0],
+      toggle = _useTodo2[1];
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    onClick: toggle
+  }, "Completed tasks"), /*#__PURE__*/_react.default.createElement("div", null, isToggle && completedTaks.map(function (task) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "todo-item",
+      key: task.id
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+      type: "checkbox",
+      name: "checkbox",
+      checked: "".concat(task.completed ? "checked" : ""),
+      onChange: handleChange
+    }), /*#__PURE__*/_react.default.createElement("span", {
+      className: "".concat(task.completed ? "item-completed" : "")
+    }, task.title)));
+  })));
+}
+
+var _default = CompletedItems;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../useTodo":"useTodo.js"}],"Components/ActiveTasks.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+var _useTodo3 = _interopRequireDefault(require("../useTodo"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+function ActiveTasks(_ref) {
+  var activeTasks = _ref.activeTasks,
+      handleChange = _ref.handleChange;
+
+  var _useTodo = (0, _useTodo3.default)(),
+      _useTodo2 = _slicedToArray(_useTodo, 2),
+      isOpen = _useTodo2[0],
+      toggle = _useTodo2[1];
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
+    type: "button",
+    onClick: toggle
+  }, "Active tasks"), isOpen && activeTasks.map(function (task) {
+    return /*#__PURE__*/_react.default.createElement("div", {
+      className: "todo-item",
+      key: task.id
+    }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
+      type: "checkbox",
+      name: "checkbox",
+      onChange: handleChange
+    }), /*#__PURE__*/_react.default.createElement("span", null, task.title)));
+  }));
+}
+
+var _default = ActiveTasks;
+exports.default = _default;
+},{"react":"node_modules/react/index.js","../useTodo":"useTodo.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -29834,15 +30014,25 @@ exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
-var _ToDoItem = _interopRequireDefault(require("./Components/ToDoItem"));
+var _AllToDoItems = _interopRequireDefault(require("./Components/AllToDoItems"));
 
 var _FormSubmit = _interopRequireDefault(require("./Components/FormSubmit"));
+
+var _CompletedItems = _interopRequireDefault(require("./Components/CompletedItems"));
+
+var _ActiveTasks = _interopRequireDefault(require("./Components/ActiveTasks"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _getRequireWildcardCache() { if (typeof WeakMap !== "function") return null; var cache = new WeakMap(); _getRequireWildcardCache = function () { return cache; }; return cache; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } if (obj === null || typeof obj !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
@@ -29867,18 +30057,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var initializeItems = [{
   title: "Do coding challenges",
   id: 3248936666666666666666,
-  completed: false
+  completed: true
 }, {
   title: "Do washing",
   id: 239479386666667,
-  completed: false
+  completed: true
 }];
 
 function App() {
   var _useState = (0, _react.useState)(initializeItems),
       _useState2 = _slicedToArray(_useState, 2),
       todoItems = _useState2[0],
-      setTodoItem = _useState2[1];
+      setTodoItems = _useState2[1];
 
   var _useState3 = (0, _react.useState)(""),
       _useState4 = _slicedToArray(_useState3, 2),
@@ -29898,26 +30088,48 @@ function App() {
       id: Date.now(),
       completed: false
     };
-    setTodoItem(function (prevState) {
+    setTodoItems(function (prevState) {
       return [].concat(_toConsumableArray(prevState), [lists]);
     });
     e.target.reset();
   }
 
+  function markAsCompleted(id) {
+    console.log(id);
+    var updatedItems = todoItems.map(function (item) {
+      return item.id === id ? _objectSpread(_objectSpread({}, item), {}, {
+        completed: true
+      }) : item;
+    });
+    setTodoItems(updatedItems);
+  }
+
+  var completedTaks = todoItems.filter(function (task) {
+    return task.completed === true;
+  });
+  console.log(completedTaks);
+  var activeTasks = todoItems.filter(function (task) {
+    return task.completed === false;
+  });
+  console.log(activeTasks);
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "To do challenge"), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
     handleChange: handleChange,
     handleSubmit: handleSubmit
-  }), /*#__PURE__*/_react.default.createElement("div", null, todoItems.map(function (todo) {
-    return /*#__PURE__*/_react.default.createElement(_ToDoItem.default, {
-      todo: todo,
-      key: todo.id
-    });
-  })));
+  }), /*#__PURE__*/_react.default.createElement(_AllToDoItems.default, {
+    todoItems: todoItems,
+    markAsCompleted: markAsCompleted
+  }), /*#__PURE__*/_react.default.createElement(_CompletedItems.default, {
+    completedTaks: completedTaks,
+    handleChange: handleChange
+  }), /*#__PURE__*/_react.default.createElement(_ActiveTasks.default, {
+    activeTasks: activeTasks,
+    handleChange: handleChange
+  }));
 }
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./Components/ToDoItem":"Components/ToDoItem.js","./Components/FormSubmit":"Components/FormSubmit.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Components/AllToDoItems":"Components/AllToDoItems.js","./Components/FormSubmit":"Components/FormSubmit.js","./Components/CompletedItems":"Components/CompletedItems.js","./Components/ActiveTasks":"Components/ActiveTasks.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));
@@ -29957,7 +30169,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55722" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "65097" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

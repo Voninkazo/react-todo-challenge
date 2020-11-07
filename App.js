@@ -1,23 +1,25 @@
 import React, { useState } from 'react';
-import ToDoItem from './Components/ToDoItem';
+import AllToDoItems from './Components/AllToDoItems';
 import FormSubmit from './Components/FormSubmit';
+import CompletedItems from './Components/CompletedItems';
+import ActiveTasks from './Components/ActiveTasks';
 
 const initializeItems = [
     {
         title: "Do coding challenges",
         id: 3248936666666666666666,
-        completed: false,
+        completed: true,
     },
     {
         title: "Do washing",
         id: 239479386666667,
-        completed: false,
+        completed: true,
     }
 ]
 
 function App() {
 
-    const [todoItems, setTodoItem] = useState(initializeItems);
+    const [todoItems, setTodoItems] = useState(initializeItems);
     const [value,setValue] = useState("");
 
     function handleChange(e) {
@@ -33,7 +35,7 @@ function App() {
             id: Date.now(),
             completed: false,
         }
-        setTodoItem(prevState => {
+        setTodoItems(prevState => {
             return [
                 ...prevState,
                 lists,
@@ -42,19 +44,25 @@ function App() {
         e.target.reset();
     }
 
+    function markAsCompleted(id) {
+        console.log(id);
+        const updatedItems = todoItems.map(item => 
+         (item.id === id ? { ...item, completed: true} : item)); 
+         setTodoItems(updatedItems)
+    }
+
+    const completedTaks = todoItems.filter(task => task.completed === true);
+    console.log(completedTaks);
+    const activeTasks = todoItems.filter(task => task.completed === false);
+    console.log(activeTasks);
+
     return (
         <div>
             <h2>To do challenge</h2>
             <FormSubmit  handleChange={handleChange} handleSubmit={handleSubmit}/>
-            <div>
-                {
-                todoItems.map(todo => {
-                        return(
-                <ToDoItem todo={todo} key={todo.id}  />
-                )
-                })
-            }
-            </div>
+            <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
+            <CompletedItems completedTaks={completedTaks} handleChange={handleChange} />
+            <ActiveTasks activeTasks={activeTasks} handleChange={handleChange} />
         </div>
     )
 }
