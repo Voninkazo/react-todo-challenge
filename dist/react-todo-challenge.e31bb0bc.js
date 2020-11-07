@@ -29795,7 +29795,9 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function useTodo() {
-  var _useState = (0, _react.useState)(false),
+  var defaultValue = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+
+  var _useState = (0, _react.useState)(defaultValue),
       _useState2 = _slicedToArray(_useState, 2),
       isToggle = _useState2[0],
       setIsToggle = _useState2[1];
@@ -29842,7 +29844,7 @@ function AllToDoItems(_ref) {
   var markAsCompleted = _ref.markAsCompleted,
       todoItems = _ref.todoItems;
 
-  var _useTodo = (0, _useTodo3.default)(),
+  var _useTodo = (0, _useTodo3.default)(true),
       _useTodo2 = _slicedToArray(_useTodo, 2),
       isOpen = _useTodo2[0],
       toggle = _useTodo2[1];
@@ -29924,8 +29926,9 @@ function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function CompletedItems(_ref) {
-  var completedTaks = _ref.completedTaks,
-      handleChange = _ref.handleChange;
+  var completedTasks = _ref.completedTasks,
+      handleChange = _ref.handleChange,
+      removeItem = _ref.removeItem;
 
   var _useTodo = (0, _useTodo3.default)(),
       _useTodo2 = _slicedToArray(_useTodo, 2),
@@ -29935,7 +29938,7 @@ function CompletedItems(_ref) {
   return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("button", {
     type: "button",
     onClick: toggle
-  }, "Completed tasks"), /*#__PURE__*/_react.default.createElement("div", null, isToggle && completedTaks.map(function (task) {
+  }, "Completed tasks"), /*#__PURE__*/_react.default.createElement("div", null, isToggle && completedTasks.map(function (task) {
     return /*#__PURE__*/_react.default.createElement("div", {
       className: "todo-item",
       key: task.id
@@ -29946,7 +29949,12 @@ function CompletedItems(_ref) {
       onChange: handleChange
     }), /*#__PURE__*/_react.default.createElement("span", {
       className: "".concat(task.completed ? "item-completed" : "")
-    }, task.title)));
+    }, task.title), /*#__PURE__*/_react.default.createElement("button", {
+      type: "button",
+      onClick: function onClick() {
+        return removeItem(task.id);
+      }
+    }, "Remove")));
   })));
 }
 
@@ -30004,7 +30012,25 @@ function ActiveTasks(_ref) {
 
 var _default = ActiveTasks;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","../useTodo":"useTodo.js"}],"App.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","../useTodo":"useTodo.js"}],"Components/Header.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _react = _interopRequireDefault(require("react"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function Header() {
+  return /*#__PURE__*/_react.default.createElement("h1", null, "To do challenge");
+}
+
+var _default = Header;
+exports.default = _default;
+},{"react":"node_modules/react/index.js"}],"App.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -30021,6 +30047,8 @@ var _FormSubmit = _interopRequireDefault(require("./Components/FormSubmit"));
 var _CompletedItems = _interopRequireDefault(require("./Components/CompletedItems"));
 
 var _ActiveTasks = _interopRequireDefault(require("./Components/ActiveTasks"));
+
+var _Header = _interopRequireDefault(require("./Components/Header"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -30104,23 +30132,32 @@ function App() {
     setTodoItems(updatedItems);
   }
 
-  var completedTaks = todoItems.filter(function (task) {
+  var completedTasks = todoItems.filter(function (task) {
     return task.completed === true;
   });
-  console.log(completedTaks);
+  console.log(completedTasks);
   var activeTasks = todoItems.filter(function (task) {
     return task.completed === false;
   });
   console.log(activeTasks);
-  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement("h2", null, "To do challenge"), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
+
+  function removeItem(id) {
+    setTodoItems(_toConsumableArray(todoItems), todoItems.filter(function (task) {
+      return task.id !== id;
+    }));
+    console.log(id);
+  }
+
+  return /*#__PURE__*/_react.default.createElement("div", null, /*#__PURE__*/_react.default.createElement(_Header.default, null), /*#__PURE__*/_react.default.createElement(_FormSubmit.default, {
     handleChange: handleChange,
     handleSubmit: handleSubmit
   }), /*#__PURE__*/_react.default.createElement(_AllToDoItems.default, {
     todoItems: todoItems,
     markAsCompleted: markAsCompleted
   }), /*#__PURE__*/_react.default.createElement(_CompletedItems.default, {
-    completedTaks: completedTaks,
-    handleChange: handleChange
+    completedTasks: completedTasks,
+    handleChange: handleChange,
+    removeItem: removeItem
   }), /*#__PURE__*/_react.default.createElement(_ActiveTasks.default, {
     activeTasks: activeTasks,
     handleChange: handleChange
@@ -30129,7 +30166,7 @@ function App() {
 
 var _default = App;
 exports.default = _default;
-},{"react":"node_modules/react/index.js","./Components/AllToDoItems":"Components/AllToDoItems.js","./Components/FormSubmit":"Components/FormSubmit.js","./Components/CompletedItems":"Components/CompletedItems.js","./Components/ActiveTasks":"Components/ActiveTasks.js"}],"index.js":[function(require,module,exports) {
+},{"react":"node_modules/react/index.js","./Components/AllToDoItems":"Components/AllToDoItems.js","./Components/FormSubmit":"Components/FormSubmit.js","./Components/CompletedItems":"Components/CompletedItems.js","./Components/ActiveTasks":"Components/ActiveTasks.js","./Components/Header":"Components/Header.js"}],"index.js":[function(require,module,exports) {
 "use strict";
 
 var _react = _interopRequireDefault(require("react"));

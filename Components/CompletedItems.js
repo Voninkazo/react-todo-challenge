@@ -1,14 +1,14 @@
 import React from 'react';
 import useTodo from '../useTodo';
 
-function CompletedItems({completedTaks,handleChange}) {
+function CompletedItems({completedTasks,handleChange,removeItem}) {
     const [isToggle, toggle] = useTodo();
     return(
         <div>
             <button type="button" onClick={toggle}>Completed tasks</button>
             <div>
                 { isToggle &&
-                    completedTaks.map(task =>{
+                    completedTasks.map(task =>{
                         return (
                         <div className="todo-item"  key={task.id}>
                             <label>
@@ -19,6 +19,7 @@ function CompletedItems({completedTaks,handleChange}) {
                                 onChange={handleChange}
                                 />
                                 <span className={`${task.completed ? "item-completed" : "" }`}>{task.title}</span>
+                                <button type="button" onClick={() => removeItem(task.id)}>Remove</button>
                             </label>
                         </div>
                         )

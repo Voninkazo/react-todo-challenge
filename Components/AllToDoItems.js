@@ -3,7 +3,7 @@ import useTodo from '../useTodo';
 
 
 function AllToDoItems({markAsCompleted,todoItems}) {
-    const [isOpen,toggle] = useTodo();
+    const [isOpen,toggle] = useTodo(true);
     return(
         <div>
             <button type="button" onClick={toggle}>All</button>

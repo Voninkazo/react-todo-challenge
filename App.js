@@ -3,6 +3,7 @@ import AllToDoItems from './Components/AllToDoItems';
 import FormSubmit from './Components/FormSubmit';
 import CompletedItems from './Components/CompletedItems';
 import ActiveTasks from './Components/ActiveTasks';
+import Header from './Components/Header';
 
 const initializeItems = [
     {
@@ -51,17 +52,22 @@ function App() {
          setTodoItems(updatedItems)
     }
 
-    const completedTaks = todoItems.filter(task => task.completed === true);
-    console.log(completedTaks);
+    const completedTasks = todoItems.filter(task => task.completed === true);
+    console.log(completedTasks);
     const activeTasks = todoItems.filter(task => task.completed === false);
     console.log(activeTasks);
 
+    function removeItem(id) {
+        setTodoItems([...todoItems], todoItems.filter(task => task.id !== id));
+        console.log(id);
+    }
+
     return (
         <div>
-            <h2>To do challenge</h2>
+            <Header />
             <FormSubmit  handleChange={handleChange} handleSubmit={handleSubmit}/>
             <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
-            <CompletedItems completedTaks={completedTaks} handleChange={handleChange} />
+            <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
             <ActiveTasks activeTasks={activeTasks} handleChange={handleChange} />
         </div>
     )
