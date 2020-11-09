@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import AllToDoItems from './Components/AllToDoItems';
+import AllToDoItems from './pages/AllToDoItems';
 import FormSubmit from './Components/FormSubmit';
-import CompletedItems from './Components/CompletedItems';
-import ActiveTasks from './Components/ActiveTasks';
+import CompletedItems from './pages/CompletedItems';
+import ActiveTasks from './pages/ActiveTasks';
 import Header from './Components/Header';
+import { Switch, Route, Link } from 'react-router-dom';
 
 const initializeItems = [
     {
@@ -20,7 +21,7 @@ const initializeItems = [
 
 function App() {
 
-    const [todoItems, setTodoItems] = useState([])
+    const [todoItems, setTodoItems] = useState(initializeItems)
     const [value,setValue] = useState("");
 
     function handleChange(e) {
@@ -78,10 +79,23 @@ function App() {
         <div>
             <Header />
             <FormSubmit  handleChange={handleChange} handleSubmit={handleSubmit}/>
+            <div className="pages">
+                <Link to="/">All</Link>
+                <Link to="/active">Active</Link>
+                <Link to="completed">Completed</Link>
+            </div>
             <main>
-                <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
-                <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
-                <ActiveTasks activeTasks={activeTasks} markAsCompleted={markAsCompleted} />
+                <Switch>
+                    <Route exact path="/">
+                        <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
+                    </Route>
+                    <Route path="/completed">
+                        <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
+                    </Route>
+                    <Route  path="/active">
+                        <ActiveTasks activeTasks={activeTasks} markAsCompleted={markAsCompleted} />
+                    </Route>
+                </Switch>
             </main>
         </div>
     )

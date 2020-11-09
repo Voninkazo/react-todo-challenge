@@ -21,6 +21,24 @@ h1 {
     text-align: left;
 }
 
+a {
+    text-decoration: none;
+}
+
+a:focus {
+    text-decoration: underline blue;
+    line-height: 25px;
+    transition: 0.1s;
+}
+
+.pages {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
 main {
     display: flex;
     flex-direction: column;
@@ -105,5 +123,13 @@ form {
     }
     body {
         padding: 0;
+    }
+    .pages {
+        max-width: 1114px;
+        margin: auto;
+        justify-content: center;
+        a:not(:first-of-type) {
+            margin-left: 8rem;
+        }
     }
 }

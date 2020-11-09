@@ -1,13 +1,11 @@
 import React from 'react';
-import useTodo from '../useTodo';
+// import useTodo from '../useTodo';
 
 function CompletedItems({completedTasks,handleChange,removeItem}) {
-    const [isToggle, toggle] = useTodo();
     return(
         <div>
-            <button type="button" className="btn" onClick={toggle}>Completed tasks</button>
             <div>
-                { isToggle &&
+                { 
                     completedTasks.map(task =>{
                         return (
                         <div className="todo-item"  key={task.id}>
