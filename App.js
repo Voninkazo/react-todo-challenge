@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AllToDoItems from './Components/AllToDoItems';
 import FormSubmit from './Components/FormSubmit';
 import CompletedItems from './Components/CompletedItems';
@@ -20,7 +20,7 @@ const initializeItems = [
 
 function App() {
 
-    const [todoItems, setTodoItems] = useState(initializeItems);
+    const [todoItems, setTodoItems] = useState([])
     const [value,setValue] = useState("");
 
     function handleChange(e) {
@@ -44,6 +44,18 @@ function App() {
         })
         e.target.reset();
     }
+
+    useEffect(() => {
+        localStorage.setItem('todolists', JSON.stringify(todoItems));
+      }, [todoItems]);
+
+    useEffect(() => {
+        const items = JSON.parse(localStorage.getItem('todolists'));
+        if (items) {
+          setTodoItems(todoItems);
+        }
+      }, []);
+
 
     function markAsCompleted(id) {
         console.log(id);
@@ -69,7 +81,7 @@ function App() {
             <main>
                 <AllToDoItems todoItems={todoItems} markAsCompleted={markAsCompleted}  />
                 <CompletedItems completedTasks={completedTasks} handleChange={handleChange} removeItem={removeItem} />
-                <ActiveTasks activeTasks={activeTasks} handleChange={handleChange} />
+                <ActiveTasks activeTasks={activeTasks} markAsCompleted={markAsCompleted} />
             </main>
         </div>
     )

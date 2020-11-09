@@ -29992,7 +29992,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function ActiveTasks(_ref) {
   var activeTasks = _ref.activeTasks,
-      handleChange = _ref.handleChange;
+      handleChange = _ref.handleChange,
+      markAsCompleted = _ref.markAsCompleted;
 
   var _useTodo = (0, _useTodo3.default)(),
       _useTodo2 = _slicedToArray(_useTodo, 2),
@@ -30009,9 +30010,15 @@ function ActiveTasks(_ref) {
       key: task.id
     }, /*#__PURE__*/_react.default.createElement("label", null, /*#__PURE__*/_react.default.createElement("input", {
       type: "checkbox",
-      name: "checkbox",
-      onChange: handleChange
-    }), /*#__PURE__*/_react.default.createElement("span", null, task.title)));
+      name: "checkbox" // onChange={handleChange}
+      ,
+      checked: "".concat(task.completed ? "checked" : ""),
+      onChange: function onChange() {
+        return markAsCompleted(task.id);
+      }
+    }), /*#__PURE__*/_react.default.createElement("span", {
+      className: "".concat(task.completed ? "item-completed" : "")
+    }, task.title)));
   }));
 }
 
@@ -30098,7 +30105,7 @@ var initializeItems = [{
 }];
 
 function App() {
-  var _useState = (0, _react.useState)(initializeItems),
+  var _useState = (0, _react.useState)([]),
       _useState2 = _slicedToArray(_useState, 2),
       todoItems = _useState2[0],
       setTodoItems = _useState2[1];
@@ -30126,6 +30133,17 @@ function App() {
     });
     e.target.reset();
   }
+
+  (0, _react.useEffect)(function () {
+    localStorage.setItem('todolists', JSON.stringify(todoItems));
+  }, [todoItems]);
+  (0, _react.useEffect)(function () {
+    var items = JSON.parse(localStorage.getItem('todolists'));
+
+    if (items) {
+      setTodoItems(todoItems);
+    }
+  }, []);
 
   function markAsCompleted(id) {
     console.log(id);
@@ -30165,7 +30183,7 @@ function App() {
     removeItem: removeItem
   }), /*#__PURE__*/_react.default.createElement(_ActiveTasks.default, {
     activeTasks: activeTasks,
-    handleChange: handleChange
+    markAsCompleted: markAsCompleted
   })));
 }
 
@@ -30211,7 +30229,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "51712" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57308" + '/');
 
   ws.onmessage = function (event) {
     checkedAssets = {};

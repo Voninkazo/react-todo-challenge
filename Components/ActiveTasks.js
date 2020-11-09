@@ -1,7 +1,7 @@
 import React from 'react';
 import useTodo from '../useTodo';
 
-function ActiveTasks({activeTasks,handleChange}) {
+function ActiveTasks({activeTasks,handleChange,markAsCompleted}) {
     const [isOpen,toggle] = useTodo();
     return (
         <div>
@@ -14,9 +14,11 @@ function ActiveTasks({activeTasks,handleChange}) {
                                 <input 
                                 type="checkbox" 
                                 name="checkbox" 
-                                onChange={handleChange}
+                                // onChange={handleChange}
+                                checked={`${task.completed ? "checked" : "" }`}
+                                onChange={() => markAsCompleted(task.id)} 
                                 />
-                                <span>{task.title}</span>
+                                <span className={`${task.completed ? "item-completed" : "" }`}>{task.title}</span>
                             </label>
                         </div>
                     )
